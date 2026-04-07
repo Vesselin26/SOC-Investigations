@@ -30,20 +30,20 @@ I have always been curious about how technology works behind the scenes. What st
 - Infrastructure: Active Directory  
 
 ## Certifications
-[Provide certifications that you have obtained. Use ChatGPT to help create the link - Remove this afterwards]]
 <h3>📜 Certifications</h3>
 
 <p align="left">
+  <a href="https://www.credly.com/badges/73ab9d25-9b4d-433d-a7fc-38481ab57bf8/public_url">
+  <img src="https://images.credly.com/size/110x110/images/80d8a06a-c384-42bf-ad36-db81bce5adce/blob" width="90"/>
   <a href="https://www.credly.com/badges/7f30d4c0-f167-46ee-a578-c970459e9197/public_url">
-    <img src="https://images.credly.com/size/110x110/images/9b5978d2-4c2f-4c6f-9b7a-9c6c9f8a9c71/image.png" width="90"/>
+  <img src="https://images.credly.com/size/110x110/images/683783d8-eaac-4c37-a14d-11bd8a36321d/ccna_600.png" width="100"/>
+  <a href="https://www.credly.com/badges/21dd1419-17e0-4205-99c8-059a29796692/public_url">
+  <img src="https://images.credly.com/size/110x110/images/f6d62c5d-1e1d-4de6-92ee-8dc8c80b1c7b/blob" width="90"/>
+  
     
   </a>
 </p>
-<img src="https://img.shields.io/badge/-Network%2B-007ACC?&style=for-the-badge&logo=CompTIA&logoColor=white" />
-<img src="https://img.shields.io/badge/-A%2B-4D4D4D?&style=for-the-badge&logo=CompTIA&logoColor=white" />
-<img src="https://img.shields.io/badge/-CDSA-006400?&style=for-the-badge&logoColor=white" />
-<img src="https://img.shields.io/badge/-CCD-000080?&style=for-the-badge&logoColor=white" />
-</div>
+
 
 ## Projects
 - Detection Lab
