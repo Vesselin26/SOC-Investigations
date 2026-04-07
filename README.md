@@ -1,5 +1,7 @@
-# Hello, I'm CHANGEME
-<a href="https://linkedin.com"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+Hello, I'm Veselin Dimitrov
+
+Technical Account Manager with years of experience in the fintech sector, now focused on building a career as a Security Analyst with a strong interest in threat detection and incident response.
+<a href="www.linkedin.com/in/veselin-dimitrov-459492179"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
 [Brief Introduction - Remove this afterwards]
 
