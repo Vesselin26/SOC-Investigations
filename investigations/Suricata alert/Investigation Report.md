@@ -10,25 +10,27 @@ Due to logging limitations, the exact HTTP request body (plain text/JSON payload
 "/en-GB/splunkd/__raw/servicesNS/soc-65/mahcyberdefense/search/ast"
 
 This endpoint corresponds to a valid Splunk backend API used to process search queries. The /ast component refers to Abstract Syntax Tree parsing, indicating that Splunk is validating and interpreting a user-submitted search query. 
- 
+
+![Suricata Alert - Suspicious Curl](images/60.png) 
 
 ## Network Analysis:
 
 JA4 fingerpriting supports the observed traffic is legitimate. All the JA4H hashes share same prefix consistent with the same user agent (Chrome 146 on Windows 10). The shared prefix of po11cn29engb_b983648aae03_c6c523293e8e indicates browser type pattern. The suffix is different becaues of different request structure. The JA4T hash is consistent with Chrome TCP stack, further supporting normal client behavior and no use of scripting tools
 
- 
+![Suricata Alert - Suspicious Curl](images/61.png) 
 
 Port 8000 is commonly used for web applications and REST APIs, also it is the default port for Splunk web UI and backend services.
 
 172.16.0.6 established a single external connection to 54.154.251.197, which was not flagged as malicious through OSINT checks.
  
- 
+![Suricata Alert - Suspicious Curl](images/57.png)
+![Suricata Alert - Suspicious Curl](images/58.png)
 
 
 ## DNS Analysis: 
 
 No suspicious DNS queries were observed during the investigation period. All observed queries are towards legitimate DNS server 1.1.1.1 with no signs of malicious or newly created domains. The query behavior does not appear to be linked to any tunneling or beaconing.
- 
+![Suricata Alert - Suspicious Curl](images/59.png) 
 
 ## Final assesment:
 No evidence of curl or scripted HTTP activity, malicious network behavior, suspicious DNS queries, file transfers. The observed activity is consistent with legitimate internal application communication (likely Splunk-related traffic). The alert is a false-positive.
