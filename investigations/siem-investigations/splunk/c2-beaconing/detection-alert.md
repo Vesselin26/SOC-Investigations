@@ -1,3 +1,4 @@
+![Priority](https://img.shields.io/badge/Priority-High-red)
 
 CRITICAL SECURITY EVENT - ACTIVE C2 COMMUNICATION
 
