@@ -1,6 +1,6 @@
 ![Priority](https://img.shields.io/badge/Priority-High-red)
 
-CRITICAL SECURITY EVENT - ACTIVE C2 COMMUNICATION
+## CRITICAL SECURITY EVENT - ACTIVE C2 COMMUNICATION
 
 Alert: C2 Beaconing Pattern Detected
 Host: KCD-Web
