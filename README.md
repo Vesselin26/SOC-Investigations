@@ -9,16 +9,17 @@ Technical Account Manager with years of experience in the fintech sector, now fo
 I have always been curious about how technology works behind the scenes. What started as an interest in hacking has evolved into a passion for cybersecurity, and I am now focused on becoming a Security Analyst dedicated to defending systems.
 
 ## Skills
-[Provide skills and associated project. Make sure to hyperlink the project - Remove this afterwards]]
 
-| Skill                                         | Associated Project         |
-|-----------------------------------------------|----------------------------|
-| SIEM Implementation and Log Analysis          | <a href="https://google.com">Detection Lab</a>|
-| Network Traffic Monitoring and Attack Detection | <a href="https://google.com">Detection Lab</a>|
-| Security Automation with Shuffle SOAR         | SOC Automation Lab|
-| Incident Response Planning and Execution      | SOC Automation Lab|
-| Case Management with TheHive                  | SOC Automation Lab|
-| Scripting and Automation for Threat Mitigation | SOC Automation Lab|
+| Skill | Associated Project |
+|------|--------------------|
+| Email Header Analysis | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/email-investigations">Email Investigations</a> |
+| Phishing Detection & IOC Extraction | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/email-investigations">Email Investigations</a> |
+| Threat Intelligence & MITRE ATT&CK Mapping | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/email-investigations">Email Investigations</a> |
+| SIEM Log Analysis (Splunk) | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/siem-investigations/splunk">Splunk Investigations</a> |
+| Process Creation & Endpoint Investigation | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/siem-investigations/splunk/suricata-alert">Suricata Alert Investigation</a> |
+| Network Traffic Analysis & C2 Detection | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/siem-investigations/splunk/suricata-alert">Suricata Alert Investigation</a> |
+| Windows Persistence & Credential Dumping Analysis | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/siem-investigations/splunk/c2-beaconing">C2 Beaconing Investigation</a> |
+| Incident Response & Attack Chain Reconstruction | <a href="https://github.com/Vesselin26/SOC-Investigations/tree/main/investigations/siem-investigations/splunk/c2-beaconing">C2 Beaconing Investigation</a> |
 
 
 ## Tools & Technologies
