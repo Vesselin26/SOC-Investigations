@@ -143,74 +143,73 @@ Malware activity included execution of **Peer2Profit** proxy/cryptomining softwa
 
 ---
 
-## Investigation Evidence
 
 ## Investigation Evidence
 
 ### 1. Account Logon Activity
 Reviewed successful account logons on KCD-Web to identify suspicious authentication activity, source IP addresses, and newly created accounts. The analysis confirmed logons from multiple external sources and activity involving the unauthorized user `ftp$`.
 
-![Account Logon Activity](images/account-logons.png)
+![Account Logon Activity](images/3%20account%20logons%20%2B%20logon%20type%20%2B%20src%20ip.png)
 
 ---
 
 ### 2. Malicious Process Execution
 Investigated process creation events related to `client.exe` to understand how the binary was launched and which parent processes were involved. Findings showed execution through batch scripts and suspicious child process behavior.
 
-![Malicious Process Execution](images/process-creation.png)
+![Malicious Process Execution](images/4%20-%20we%20investigate%20process%20creatations%20from%20the%20alerted%20binary.png)
 
 ---
 
 ### 3. Batch Script Activity (`go.bat`)
 Analyzed commands executed by `go.bat` to identify attacker actions after compromise. Evidence included firewall rule creation, service manipulation, process execution, and deployment of additional binaries.
 
-![Batch Script Activity](images/go-bat-analysis.png)
+![Batch Script Activity](images/5-%20investigating%20what%20go.bat%20file%20does.png)
 
 ---
 
 ### 4. Network Communications Analysis
 Reviewed outbound network connections to identify external infrastructure contacted by malicious processes. Repeated communications to suspicious destinations supported active command-and-control behavior.
 
-![Network Communications Analysis](images/network-analysis.png)
+![Network Communications Analysis](images/6%20-%20network%20analysis%20to%20see%20which%20ips%20are%20communicated%20to.png)
 
 ---
 
 ### 5. Credential Dumping Evidence
 Investigated access attempts to `lsass.exe` and identified suspicious processes requesting high-privilege memory access. This behavior is strongly associated with credential dumping activity.
 
-![Credential Dumping Evidence](images/lsass-access.png)
+![Credential Dumping Evidence](images/7%20-%20lsass%20communicating%20processes.png)
 
 ---
 
 ### 6. Archive Tool Check
 Performed a search for archive utilities (`rar`, `7z`, `zip`, `tar`) to assess possible data staging or exfiltration preparation. No evidence of archive tool usage was identified.
 
-![Archive Tool Check](images/no-archiving-tools.png)
+![Archive Tool Check](images/8%20no%20archiving%20tools.png)
 
 ---
 
 ### 7. Domain Controller Authentication Review
 Reviewed authentication events on the domain controller to determine whether administrator credentials were used across the environment. No suspicious brute-force behavior was identified.
 
-![Domain Controller Authentication Review](images/addc-auth-review.png)
+![Domain Controller Authentication Review](images/9%20-%20no%20brute%20force%20on%20the%20addc%20from%20administrator.png)
 
 ---
 
 ### 8. Lateral Movement Check
 Analyzed successful logons and host-to-host activity to identify possible lateral movement. No clear evidence of additional host compromise was observed during the investigation window.
 
-![Lateral Movement Check](images/no-lateral-movement.png)
+![Lateral Movement Check](images/10%20-%20No%20evidence%20of%20lateral%20movement.png)
 
 ---
 
 ### 9. Failed Logon Attempts
 Reviewed failed authentication attempts to identify password spraying, brute force attempts, or account targeting. Multiple invalid username/password attempts were observed against common usernames.
 
-![Failed Logon Attempts](images/failed-logons.png)
+![Failed Logon Attempts](images/failed%20logon%20users.png)
 
 ---
 
 ### 10. Successful Logon Summary
 Summarized successful authentication events by user and logon type to establish a baseline and compare normal versus suspicious activity.
 
-![Successful Logon Summary](images/successful-logons.png)
+![Successful Logon Summary](images/successful%20account%20logons.png)
