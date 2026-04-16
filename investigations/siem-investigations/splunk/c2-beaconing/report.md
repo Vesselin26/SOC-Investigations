@@ -143,6 +143,74 @@ Malware activity included execution of **Peer2Profit** proxy/cryptomining softwa
 
 ---
 
-## Full Report
+## Investigation Evidence
 
-[View Full Investigation Report](report-c2.docx)
+## Investigation Evidence
+
+### 1. Account Logon Activity
+Reviewed successful account logons on KCD-Web to identify suspicious authentication activity, source IP addresses, and newly created accounts. The analysis confirmed logons from multiple external sources and activity involving the unauthorized user `ftp$`.
+
+![Account Logon Activity](images/account-logons.png)
+
+---
+
+### 2. Malicious Process Execution
+Investigated process creation events related to `client.exe` to understand how the binary was launched and which parent processes were involved. Findings showed execution through batch scripts and suspicious child process behavior.
+
+![Malicious Process Execution](images/process-creation.png)
+
+---
+
+### 3. Batch Script Activity (`go.bat`)
+Analyzed commands executed by `go.bat` to identify attacker actions after compromise. Evidence included firewall rule creation, service manipulation, process execution, and deployment of additional binaries.
+
+![Batch Script Activity](images/go-bat-analysis.png)
+
+---
+
+### 4. Network Communications Analysis
+Reviewed outbound network connections to identify external infrastructure contacted by malicious processes. Repeated communications to suspicious destinations supported active command-and-control behavior.
+
+![Network Communications Analysis](images/network-analysis.png)
+
+---
+
+### 5. Credential Dumping Evidence
+Investigated access attempts to `lsass.exe` and identified suspicious processes requesting high-privilege memory access. This behavior is strongly associated with credential dumping activity.
+
+![Credential Dumping Evidence](images/lsass-access.png)
+
+---
+
+### 6. Archive Tool Check
+Performed a search for archive utilities (`rar`, `7z`, `zip`, `tar`) to assess possible data staging or exfiltration preparation. No evidence of archive tool usage was identified.
+
+![Archive Tool Check](images/no-archiving-tools.png)
+
+---
+
+### 7. Domain Controller Authentication Review
+Reviewed authentication events on the domain controller to determine whether administrator credentials were used across the environment. No suspicious brute-force behavior was identified.
+
+![Domain Controller Authentication Review](images/addc-auth-review.png)
+
+---
+
+### 8. Lateral Movement Check
+Analyzed successful logons and host-to-host activity to identify possible lateral movement. No clear evidence of additional host compromise was observed during the investigation window.
+
+![Lateral Movement Check](images/no-lateral-movement.png)
+
+---
+
+### 9. Failed Logon Attempts
+Reviewed failed authentication attempts to identify password spraying, brute force attempts, or account targeting. Multiple invalid username/password attempts were observed against common usernames.
+
+![Failed Logon Attempts](images/failed-logons.png)
+
+---
+
+### 10. Successful Logon Summary
+Summarized successful authentication events by user and logon type to establish a baseline and compare normal versus suspicious activity.
+
+![Successful Logon Summary](images/successful-logons.png)
