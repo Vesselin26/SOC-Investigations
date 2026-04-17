@@ -15,7 +15,9 @@ The environment includes:
 - **Splunk** – Centralized log collection, search, dashboards, detections, and investigations  
 - **Zeek & Suricata** – Network visibility, IDS alerts, protocol logs, and traffic analysis  
 - **Kali Linux** – Attack simulation, enumeration, and adversary testing  
-- **Layer 2 Switch** – Internal connectivity between systems  
+- **Layer 2 Switch** – Internal connectivity between systems
+
+![Network Diagram](images/network-diagram.png)
 
 ---
 
