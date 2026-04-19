@@ -51,7 +51,7 @@ Sysmon Event ID 14 – Registry Rename
 
 ## Splunk Detection Query
 ```
-index="vescyber-detection-lab"
+index="vescyber-detect"
 (EventCode=12 OR EventCode=13 OR EventCode=14)
 (TargetObject="*Run*" OR TargetObject="*Winlogon*" OR TargetObject="*shell\\open\\command*")
 | table _time host user EventID TargetObject Details
