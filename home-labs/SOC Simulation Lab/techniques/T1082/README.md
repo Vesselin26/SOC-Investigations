@@ -45,7 +45,7 @@ Sysmon Event ID 1 – Process Creation
 
 ## Splunk Detection Query
 ```
-index="vescyber-detection-lab" EventCode=1 
+index="vescyber-detect" EventCode=1 
 (CommandLine="*systeminfo*" OR CommandLine="*hostname*" OR CommandLine="*MachineGUID*")
 | table _time User ParentImage Image CommandLine
 ```
