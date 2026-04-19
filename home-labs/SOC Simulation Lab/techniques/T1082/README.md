@@ -53,8 +53,10 @@ index="vescyber-detection-lab" EventCode=1
 ## Detection Evidence
 
 Search Results
+![T1082 Search Results](T1082-res.png)
 
 Event Details
+![T1082 Search Results](T1082-res.png)
 
 ## Key Observations
 
