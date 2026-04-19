@@ -39,7 +39,7 @@ Invoke-AtomicTest T1059
 Sysmon Event ID 1 – Process Creation
 
 ## Splunk Detection Query
-```index="vescyber-detection-lab" EventCode=1 Image="*powershell.exe"```
+```index="vescyber-detect" EventCode=1 Image="*powershell.exe"```
 
 ![T1059 Search Results](T1059-res.png)
 
