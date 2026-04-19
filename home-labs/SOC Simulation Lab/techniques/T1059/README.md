@@ -41,6 +41,7 @@ Sysmon Event ID 1 – Process Creation
 ## Splunk Detection Query
 ```index="vescyber-detection-lab" EventCode=1 Image="*powershell.exe"```
 
+![T1059 Search Results](T1059-res.png)
 
 ## Key Observations
 
@@ -55,6 +56,8 @@ Repeated PowerShell launches
 A notable event showed:
 
 ```(New-Object Net.WebClient).DownloadString(...)```
+
+![T1059 Search Results](T059-event.png)
 
 This behavior is commonly associated with:
 
