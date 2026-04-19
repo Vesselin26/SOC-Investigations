@@ -61,7 +61,11 @@ index="vescyber-detection-lab"
 
 Search Results
 
+![T1547 Search Results](T1547-res.png)
+
 Event Details
+
+![T1547 Search Results](T1547-res.png)
 
 ## Key Observations
 
