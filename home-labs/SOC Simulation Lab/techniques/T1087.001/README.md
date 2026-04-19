@@ -57,11 +57,11 @@ index="vescyber-detec" EventCode=1
 
 Search Results
 
-![T1087.001 Search Results](T1087.001.-res.png)
+![T1087 Search Results](T1087.001.res.png)
 
 Event Details
 
-![T1087.001 Search Results](T1087.001.-event.png)
+![T1087 Event Details](T1087.001.event.png)
 
 ## Key Observations
 
