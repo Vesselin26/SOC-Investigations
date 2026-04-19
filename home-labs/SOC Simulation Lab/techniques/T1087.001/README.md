@@ -57,11 +57,15 @@ index="vescyber-detec" EventCode=1
 
 Search Results
 
+![T1087.001 Search Results](T1087.001.-res.png)
+
 Event Details
 
-Key Observations
+![T1087.001 Search Results](T1087.001.-event.png)
 
-## Observed account discovery behavior included:
+## Key Observations
+
+ Observed account discovery behavior included:
 
 Enumeration of local users
 Enumeration of local groups
