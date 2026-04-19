@@ -48,7 +48,7 @@ Sysmon Event ID 1 – Process Creation
 
 ## Splunk query
 ```
-index="vescyber-detec" EventCode=1
+index="vescyber-detect" EventCode=1
 (CommandLine="*net user*" 
 | table _time host User Image CommandLine
 ```
