@@ -88,9 +88,15 @@ Failure Reason: Unknown user name or bad password
 
 Kali Attack Execution
 
+![T1110 Search Results](kali-setup.png)
+
 Splunk Search Results
 
+![T1110 Search Results](kali-bruteforce.res.png)
+
 Failed Logon Event Details
+
+![T1110 Search Results](kali-bruteforce.event.png)
 
 ## Investigation Findings
 
