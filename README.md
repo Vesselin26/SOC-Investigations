@@ -43,7 +43,7 @@ The investigations in this repository are based on scenarios and telemetry from 
 | Incident Response & Attack Chain Reconstruction | [C2 Beaconing Investigation](investigations/siem-investigations/splunk/c2-beaconing/) |
 | Static Malware Analysis (REMnux) | [Static Malware Analysis](malware-analysis/static-analysis/) |
 | IOC Extraction & Malware Triage | [Static Malware Analysis](malware-analysis/static-analysis/) |
-| YARA Rules | [Static Malware Analysis](malware-analysis/static-analysis/) |
+| YARA Rule Development | [YARA Rules](malware-analysis/yara-rules/) |
 
 ---
 
