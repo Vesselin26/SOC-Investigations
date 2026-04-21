@@ -41,6 +41,9 @@ The investigations in this repository are based on scenarios and telemetry from 
 | Network Traffic Analysis & C2 Detection | [Suricata Alert Investigation](investigations/siem-investigations/splunk/suricata-alert/) |
 | Windows Persistence & Credential Dumping Analysis | [C2 Beaconing Investigation](investigations/siem-investigations/splunk/c2-beaconing/) |
 | Incident Response & Attack Chain Reconstruction | [C2 Beaconing Investigation](investigations/siem-investigations/splunk/c2-beaconing/) |
+| Static Malware Analysis (REMnux) | [Static Malware Analysis](malware-analysis/static-analysis/) |
+| IOC Extraction & Malware Triage | [Static Malware Analysis](malware-analysis/static-analysis/) |
+| YARA Rules | [Static Malware Analysis](malware-analysis/static-analysis/) |
 
 ---
 
