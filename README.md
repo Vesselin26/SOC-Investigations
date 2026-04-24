@@ -35,8 +35,8 @@ The investigations in this repository are based on scenarios and telemetry from 
 |------|--------------------|
 | Security Automation & Incident Response Workflows | [AI SOC Automation Lab](projects/ai-soc-automation-lab/) |
 | AI-Powered Alert Enrichment & Triage (OpenAI, Claude) | [AI SOC Automation Lab](projects/ai-soc-automation-lab/) |
-| Security Platform Integrations (Splunk, n8n, Slack, IRIS) | [AI SOC Automation Lab](projects/ai-soc-automation-lab/) |
-| SIEM Log Analysis (Splunk) | [Splunk Investigations](investigations/siem-investigations/splunk/) |
+| Detection Engineering, Threat Hunting & SIEM (Splunk) | [SOC Detection Lab](home-labs/SOC%20Simulation%20Lab/) |
+| Network Security, Active Directory & Adversary Simulation (Zeek, Suricata, pfSense, Kali) | [SOC Detection Lab](home-labs/SOC%20Simulation%20Lab/) |
 | Process Creation & Endpoint Investigation | [Suricata Alert Investigation](investigations/siem-investigations/splunk/suricata-alert/) |
 | Network Traffic Analysis & C2 Detection | [Suricata Alert Investigation](investigations/siem-investigations/splunk/suricata-alert/) |
 | Windows Persistence & Credential Dumping Analysis | [C2 Beaconing Investigation](investigations/siem-investigations/splunk/c2-beaconing/) |
