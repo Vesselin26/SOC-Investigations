@@ -33,9 +33,9 @@ The investigations in this repository are based on scenarios and telemetry from 
 
 | Skill | Associated Project |
 |------|--------------------|
-| Email Header Analysis | [Email Investigations](investigations/email-investigations/) |
-| Phishing Detection & IOC Extraction | [Email Investigations](investigations/email-investigations/) |
-| Threat Intelligence & MITRE ATT&CK Mapping | [Email Investigations](investigations/email-investigations/) |
+| Security Automation & Incident Response Workflows | [AI SOC Automation Lab](projects/ai-soc-automation-lab/) |
+| AI-Powered Alert Enrichment & Triage (OpenAI, Claude) | [AI SOC Automation Lab](projects/ai-soc-automation-lab/) |
+| Security Platform Integrations (Splunk, n8n, Slack, IRIS) | [AI SOC Automation Lab](projects/ai-soc-automation-lab/) |
 | SIEM Log Analysis (Splunk) | [Splunk Investigations](investigations/siem-investigations/splunk/) |
 | Process Creation & Endpoint Investigation | [Suricata Alert Investigation](investigations/siem-investigations/splunk/suricata-alert/) |
 | Network Traffic Analysis & C2 Detection | [Suricata Alert Investigation](investigations/siem-investigations/splunk/suricata-alert/) |
@@ -44,6 +44,9 @@ The investigations in this repository are based on scenarios and telemetry from 
 | Static Malware Analysis (REMnux) | [Static Malware Analysis](malware-analysis/static-analysis/) |
 | IOC Extraction & Malware Triage | [Static Malware Analysis](malware-analysis/static-analysis/) |
 | YARA Rule Development | [YARA Rules](malware-analysis/yara-rules/) |
+| Email Header Analysis | [Email Investigations](investigations/email-investigations/) |
+| Phishing Detection & IOC Extraction | [Email Investigations](investigations/email-investigations/) |
+| Threat Intelligence & MITRE ATT&CK Mapping | [Email Investigations](investigations/email-investigations/) |
 
 ---
 
