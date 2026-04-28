@@ -249,4 +249,27 @@ The dropped file `svchost.exe` located in `C:\Windows\Temp\svchost.exe` was anal
 This external intelligence validates the internal findings from Microsoft Defender hunting.  
 The file is highly suspicious and likely designed for persistence, credential abuse, or post-exploitation activity.
 
+### VirusTotal – Malicious File Reputation (`m.ps1.exe`)
+
+The PowerShell script `m.ps1`, identified on the compromised host in `C:\Windows\Temp\m.ps1`, was analyzed in VirusTotal and received **41 detections out of 63 security vendors**, indicating strong malicious confidence.
+
+![VirusTotal svchost.exe](images/virustotal-m.ps1.png)
+
+### Key Findings
+
+- **Community score:** 41 / 63
+- **Threat Categories:** Trojan, Dropper, Hacktool
+- **Popular Threat Label:** `trojan.powershell/mimikatz`
+- **Family Labels:** PowerShell, Mimikatz, DWVJ
+- **Observed Characteristics:**
+  - PowerShell-based payload
+  - Credential theft tooling indicators
+  - Obfuscated script behavior
+  - Potential post-exploitation capability
+
+### Verdict
+
+This strongly supports the internal investigation findings that `m.ps1` was not a benign administrative script.  
+The detections suggest it was likely used as a malicious PowerShell toolkit for credential access, payload delivery, or follow-on attacker activity.
+
 
