@@ -228,7 +228,7 @@ The case highlights the importance of validating alerts beyond the initial detec
 
 The dropped file `svchost.exe` located in `C:\Windows\Temp\svchost.exe` was analyzed in VirusTotal and received **55 detections out of 69 security vendors**, strongly confirming the file is malicious.
 
-![VirusTotal svchost.exe](images/virustotal-svchost.png)
+![VirusTotal svchost.exe](images/virustota-svchost.png)
 
 ### Key Findings
 
