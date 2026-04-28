@@ -272,4 +272,64 @@ The PowerShell script `m.ps1`, identified on the compromised host in `C:\Windows
 This strongly supports the internal investigation findings that `m.ps1` was not a benign administrative script.  
 The detections suggest it was likely used as a malicious PowerShell toolkit for credential access, payload delivery, or follow-on attacker activity.
 
+### VirusTotal – Malicious File Reputation (`svchost.exe` in SysWOW64)
+
+A second malicious executable masquerading as `svchost.exe` was identified in `C:\Windows\SysWOW64\drivers\svchost.exe`. VirusTotal analysis shows **65 detections out of 71 security vendors**, indicating extremely high malicious confidence.
+
+![VirusTotal svchost.exe SysWOW64](images/virustotal.svchost1.png)
+
+### Key Findings
+
+- **Community score:** 65 / 71
+- **Threat Categories:** Trojan, Dropper, Spyware
+- **Popular Threat Label:** `trojan.fsysna/adzpf`
+- **Family Labels:** Fsysna, ADZPF, DangerousSig
+- **Behavior Tags Observed:**
+  - persistence
+  - spreader
+  - spyware behavior
+  - runtime modules
+  - WMI usage
+  - anti-analysis checks
+  - user/input checks
+
+### Assessment
+
+This file appears to be a secondary payload or follow-on malware component placed in a deceptive system path to evade detection.  
+Its high detection rate and spyware/dropper classifications suggest post-compromise capability such as persistence, surveillance, or payload staging.
+
+### AbuseIPDB – External IP Reputation (`95.189.49.66`)
+
+The IP address `95.189.49.66`, observed in connection with malware file activity during the investigation, was reviewed in AbuseIPDB.
+
+![AbuseIPDB 95.189.49.66](images/abuseipdb-95.189.49.66.png)
+
+### Key Findings
+
+- **Listed in AbuseIPDB:** Yes
+- **Abuse Confidence Score:** 7%
+- **Country:** Russian Federation
+- **City:** Irkutsk, Irkutsk Oblast
+- **ISP:** OJSC Sibirtelecom
+- **ASN:** AS12389
+- **Associated Domain:** `irtel.ru`
+
+### Reported Malicious Activity
+
+Community reports associated with this IP include:
+
+- Brute Force RDP Attack
+- Port Scanning
+- Hacking Attempts
+- Phishing Activity
+- Web Spam
+
+### Assessment
+
+Although the abuse confidence score is relatively low, the IP has multiple historical abuse reports across different reporters and categories.  
+Combined with the internal telemetry showing malware-related file activity, this IP should be considered suspicious and relevant to the investigation.
+
+
+
+
 
