@@ -23,6 +23,8 @@ The objective of this case was to validate the alert, reconstruct the attackerâ€
 
 Microsoft Defender generated an alert for:
 
+![Initial Alert](images/alert.png)
+
 - **Suspicious PowerShell download or encoded command execution**
 
 Initial review showed recurring executions of:
