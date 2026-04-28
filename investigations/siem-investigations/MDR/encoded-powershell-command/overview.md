@@ -1,5 +1,5 @@
 
-# Fileless PowerShell Persistence Investigation – Microsoft Defender XDR
+# Fileless PowerShell Persistence Investigation – Microsoft Defender
 
 ## Overview
 
@@ -199,29 +199,6 @@ This suggests attacker reconnaissance, log awareness, or attempts to understand 
 \Microsoft\windows\Bluetooths
 ``
 
-## MITRE ATT&CK Mapping
-
-| Tactic | Technique | ID | Evidence |
-|-------|-----------|----|----------|
-| Execution | PowerShell | T1059.001 | Encoded PowerShell command execution with `-ep bypass -e` |
-| Persistence | Scheduled Task/Job: Scheduled Task | T1053.005 | Malicious task `\Microsoft\windows\Bluetooths` created to run every 50 minutes |
-| Defense Evasion | Obfuscated/Compressed Files and Information | T1027 | Base64-encoded payload used to hide command intent |
-| Defense Evasion | Masquerading | T1036 | Fake `svchost.exe` written outside legitimate Windows directories |
-| Command and Control | Ingress Tool Transfer | T1105 | Remote script retrieved from `v.beahh.com` |
-| Credential Access | OS Credential Dumping / Credential Discovery | T1003 / T1555 | `Invoke-Cats -pwds` execution suggests password-focused activity |
-| Discovery | System Information Discovery | T1082 | Enumeration and host awareness activity observed |
-| Discovery | Account Discovery | T1087 | Domain name appended in payload, likely environment-aware targeting |
-| Discovery | Security Software Discovery / Log Discovery | T1518 / T1083 | Security log queries via `Get-EventLog -LogName Security` |
-| Privilege Escalation / Persistence | Valid Accounts (SYSTEM Context Abuse) | T1078 | Payload executed repeatedly under SYSTEM account |
-
-## Verdict
-
-This investigation confirmed that the Defender alert was part of a broader compromise rather than an isolated PowerShell event.
-
-An attacker established SYSTEM-level persistence through a malicious scheduled task, repeatedly executed remote in-memory payloads, dropped additional tools to disk, and performed follow-on activity consistent with credential access and reconnaissance.
-
-The case highlights the importance of validating alerts beyond the initial detection and demonstrates how recurring PowerShell telemetry can reveal deeper persistence and attacker intent.
-
 ## OSINT Enrichment
 
 ### VirusTotal – Malicious File Reputation (`svchost.exe`)
@@ -329,7 +306,107 @@ Community reports associated with this IP include:
 Although the abuse confidence score is relatively low, the IP has multiple historical abuse reports across different reporters and categories.  
 Combined with the internal telemetry showing malware-related file activity, this IP should be considered suspicious and relevant to the investigation.
 
+## MITRE ATT&CK Mapping
 
+| Tactic | Technique | ID | Evidence |
+|-------|-----------|----|----------|
+| Execution | PowerShell | T1059.001 | Encoded PowerShell command execution with `-ep bypass -e` |
+| Persistence | Scheduled Task/Job: Scheduled Task | T1053.005 | Malicious task `\Microsoft\windows\Bluetooths` created to run every 50 minutes |
+| Defense Evasion | Obfuscated/Compressed Files and Information | T1027 | Base64-encoded payload used to hide command intent |
+| Defense Evasion | Masquerading | T1036 | Fake `svchost.exe` written outside legitimate Windows directories |
+| Command and Control | Ingress Tool Transfer | T1105 | Remote script retrieved from `v.beahh.com` |
+| Credential Access | OS Credential Dumping / Credential Discovery | T1003 / T1555 | `Invoke-Cats -pwds` execution suggests password-focused activity |
+| Discovery | System Information Discovery | T1082 | Enumeration and host awareness activity observed |
+| Discovery | Account Discovery | T1087 | Domain name appended in payload, likely environment-aware targeting |
+| Discovery | Security Software Discovery / Log Discovery | T1518 / T1083 | Security log queries via `Get-EventLog -LogName Security` |
+| Privilege Escalation / Persistence | Valid Accounts (SYSTEM Context Abuse) | T1078 | Payload executed repeatedly under SYSTEM account |
 
+## Recommendations
 
+- **Isolate the infected host**
+  
+- **Reimage ths host if possible**
 
+- **Althoug its easy for the attacker to change the domains and ip address, conisder blocking any outboud connections to them**
+  
+- **Reset all credentials accross the domain**
+  
+- **Revoke any session tokens**
+
+## Verdict
+
+This investigation confirmed that the Defender alert was part of a broader compromise rather than an isolated PowerShell event.
+
+An attacker established SYSTEM-level persistence through a malicious scheduled task, repeatedly executed remote in-memory payloads, dropped additional tools to disk, and performed follow-on activity consistent with credential access and reconnaissance.
+
+The case highlights the importance of validating alerts beyond the initial detection and demonstrates how recurring PowerShell telemetry can reveal deeper persistence and attacker intent.
+
+## KQL hunting queries 
+
+- **Identifying suspicious commandline commands**
+
+```kusto
+let compromisedHost = "mts-dc.mts.local";
+let startTime = datetime(2026-04-17 12:30:00);
+let endTime = datetime(2026-04-23 23:59:59); 
+DeviceProcessEvents
+| where DeviceName == compromisedHost
+| where TimeGenerated between (startTime .. endTime)
+| where ProcessCommandLine has_any ("enc","bypass","beahh.com")
+| project TimeGenerated, FileName, ProcessCommandLine 
+| sort by TimeGenerated asc
+```
+
+- **Hunting for suspicious powershell commands**
+
+```kusto
+let compromisedHost = "mts-dc.mts.local";
+let startTime = datetime(2026-04-16 00:00:00);
+let endTime = datetime(2026-04-27 23:59:59); 
+DeviceProcessEvents
+| where DeviceName == compromisedHost
+| where TimeGenerated between (startTime .. endTime )
+| where InitiatingProcessCommandLine  has_any ("-enc","bypass","-e","encodedcommand")
+| where InitiatingProcessFileName =="powershell.exe"
+| project TimeGenerated,DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, FileName, ProcessCommandLine
+| sort by TimeGenerated asc
+```
+
+- **Huntig for encoded outbound powershell commands**
+  
+```kusto
+let compromisedHost = "mts-dc.mts.local";
+let startTime = datetime(2026-04-17 00:00:00);
+let endTime = datetime(2026-04-27 23:59:59); 
+DeviceNetworkEvents
+| where DeviceName == compromisedHost
+| where TimeGenerated between (startTime .. endTime )
+| where InitiatingProcessCommandLine  has_any ("-enc","bypass","-e","encodedcommand")
+| where InitiatingProcessFileName =="powershell.exe"
+| project TimeGenerated, RemoteIP, RemoteUrl, ActionType, InitiatingProcessCommandLine
+| sort by TimeGenerated asc
+```
+
+- **Checking for any downloaded files by command line interpreturs**
+
+```kusto
+let compromisedHost = "mts-dc.mts.local";
+let startTime = datetime(2026-04-17 00:00:00);
+let endTime = datetime(2026-04-23 23:59:59); 
+DeviceFileEvents
+| where DeviceName == compromisedHost
+| where TimeGenerated between (startTime .. endTime)
+| where ActionType in ("FileCreated","FileModified","FileRenamed") 
+| where InitiatingProcessFileName  in~ ("powershell.exe","cmd.exe","msedge.exe")
+| project TimeGenerated,ActionType,FileName,FolderPath, SHA256, RequestSourceIP
+| sort by TimeGenerated asc 
+```
+
+- **Identify Other Hosts Running Similar Malicious Commands**
+
+```kusto
+DeviceProcessEvents
+| where ProcessCommandLine has_any ("beahh.com","bypass","-enc")
+| distinct DeviceName
+| sort by DeviceName asc
+```
